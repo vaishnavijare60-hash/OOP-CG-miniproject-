@@ -1,4 +1,6 @@
 #include "Visualizer.h"
+
+#ifdef _WIN32
 #include <windows.h>
 #include <vector>
 #include <string>
@@ -489,3 +491,24 @@ void Visualizer::renderAccountDashboard(const Account& account) {
 
     UnregisterClassA(CLASS_NAME, GetModuleHandle(NULL));
 }
+
+#else
+
+#include <iostream>
+
+bool Visualizer::isSupported() {
+    return false;
+}
+
+void Visualizer::renderAccountDashboard(const Account& account) {
+    std::cout << "\n==============================================================\n";
+    std::cout << "           COMPUTER GRAPHICS (CG) VISUAL ANALYTICS            \n";
+    std::cout << "==============================================================\n";
+    std::cout << "[NOTE] The 2D Graphical Dashboard is available on Windows only (Win32 GDI).\n";
+    std::cout << "       Current Account: " << account.getAccountNumber() << " (" << account.getHolderName() << ")\n";
+    std::cout << "       Tip: You can view rich 2D graphics in your web browser by running:\n";
+    std::cout << "            python3 web_app.py -> http://localhost:5000\n";
+    std::cout << "==============================================================\n\n";
+}
+
+#endif

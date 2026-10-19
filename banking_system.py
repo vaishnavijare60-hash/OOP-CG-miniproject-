@@ -18,8 +18,11 @@ import sys
 import os
 import datetime
 from abc import ABC, abstractmethod
-import tkinter as tk
-from tkinter import messagebox, ttk
+try:
+    import tkinter as tk
+    from tkinter import messagebox, ttk
+except ImportError:
+    tk = messagebox = ttk = None
 
 # ==============================================================================
 # 1. Custom Exceptions (OOP Exception Hierarchy)
@@ -430,6 +433,9 @@ class Bank:
 class CGVisualizer:
     @staticmethod
     def show_dashboard(account: Account):
+        if tk is None:
+            print("\n[!] 2D Graphical Dashboard requires tkinter, which is not installed on this system.")
+            return
         win = tk.Toplevel()
         win.title(f"2D Computer Graphics Analytics | {account._account_number} ({account._holder_name})")
         win.geometry("960x700")
@@ -576,6 +582,8 @@ class CGVisualizer:
 
 class BankingGUI:
     def __init__(self, root, bank: Bank):
+        if tk is None:
+            raise RuntimeError("Tkinter is not installed on this system.")
         self.root = root
         self.bank = bank
         self.root.title("Apex National Bank | OOP & Computer Graphics Mini-Project")
@@ -1013,7 +1021,12 @@ def run_cli(bank: Bank):
             acc_no = input("Account Number to visualize : ").strip()
             try:
                 acc = bank.get_account(acc_no)
-                CGVisualizer.show_dashboard(acc)
+                if tk is None:
+                    print("\n[!] Tkinter is not installed on this system.")
+                    print("    The 2D graphical visualizer is unavailable in headless/CLI environments.")
+                    print("    Please use the web app (web_app.py) or install python3-tk.")
+                else:
+                    CGVisualizer.show_dashboard(acc)
             except Exception as e:
                 print(f"[ERROR] {e}")
 
@@ -1034,13 +1047,14 @@ def run_cli(bank: Bank):
 if __name__ == "__main__":
     bank_system = Bank()
 
-    if "--cli" in sys.argv:
+    if "--cli" in sys.argv or tk is None:
         run_cli(bank_system)
     else:
         try:
             root = tk.Tk()
             app = BankingGUI(root, bank_system)
             root.mainloop()
-        except Exception:
-            # Fallback to CLI if headless or display error
+        except Exception as e:
+            # Fallback to CLI if headless, display error, or GUI fails
+            print(f"[NOTE] GUI could not start ({e}). Launching CLI mode instead...\n")
             run_cli(bank_system)
