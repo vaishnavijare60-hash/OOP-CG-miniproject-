@@ -1,0 +1,28 @@
+# Compiled Binaries & Object Files
+*.exe
+*.o
+*.obj
+*.pdb
+*.ilk
+*.idb
+obj/
+bin/
+build/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE & Editor Files
+.vscode/
+.vs/
+*.swp
+*.swo
+
+# Output test files
+test_*.txt
+test_gdi.cpp
+test_gdi.exe
+test_cpp.cpp
+test_cpp.exe

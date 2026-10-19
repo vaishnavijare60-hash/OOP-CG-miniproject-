@@ -1,0 +1,21 @@
+========================================================================================
+                                OFFICIAL BANK PASSBOOK                                  
+========================================================================================
+Account Number: SB1001         Holder Name : Vaishnavi Jare
+Account Type  : SAVINGS        Filter Range: 2026-01-01 to 2026-12-31
+Current Bal   : INR 28000.00
+----------------------------------------------------------------------------------------
+Date & Time         Txn ID     Type        Debit (INR)   Credit (INR)  Balance (INR)  Description
+----------------------------------------------------------------------------------------
+2026-10-19 19:31:31 TXN1001    OPENING     -             25000.00      25000.00       Account Opening Initial Deposit
+2026-10-19 19:31:31 TXN1002    DEPOSIT     -             5000.00       30000.00       Salary Credited
+2026-10-19 19:31:31 TXN1003    DEPOSIT     -             2500.00       32500.00       Freelance Payment
+2026-10-19 19:31:31 TXN1004    WITHDRAWAL  3000.00       -             29500.00       ATM Cash Withdrawal
+2026-10-19 19:31:31 TXN1005    WITHDRAWAL  1500.00       -             28000.00       Grocery Store POS
+----------------------------------------------------------------------------------------
+SUMMARY FOR PERIOD:
+  * Total Transactions Recorded : 5
+  * Total Amount Debited        : INR 4500.00
+  * Total Amount Credited       : INR 32500.00
+  * Net Transaction Difference  : INR 28000.00
+========================================================================================
