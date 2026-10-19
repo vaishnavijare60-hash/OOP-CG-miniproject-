@@ -1,6 +1,7 @@
 @echo off
+cd /d "%~dp0"
 echo ======================================================================
-echo    Launching Banking System (OOP & Computer Graphics Mini-Project)
+echo    Launching Banking System (OOP and Computer Graphics Mini-Project)
 echo ======================================================================
 echo Select Execution Mode:
 echo   1. Modern Graphical UI (Tkinter + 2D Graphics Canvas)

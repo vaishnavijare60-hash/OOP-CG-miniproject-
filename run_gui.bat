@@ -1,4 +1,9 @@
 @echo off
-title Apex Banking System - Modern GUI & 2D Graphics
+cd /d "%~dp0"
 echo Starting Apex Banking System Graphical User Interface...
-start "" python banking_system.py
+python banking_system.py
+if %ERRORLEVEL% neq 0 (
+    echo.
+    echo [ERROR] Application exited with code %ERRORLEVEL%
+    pause
+)

@@ -1,8 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
+cd /d "%~dp0"
 
 echo ======================================================================
-echo    Compiling Banking System (OOP & CG Mini-Project)
+echo    Compiling Banking System (OOP and CG Mini-Project)
 echo ======================================================================
 
 :: Check if g++ is in PATH

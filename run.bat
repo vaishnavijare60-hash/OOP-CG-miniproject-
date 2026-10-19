@@ -1,4 +1,6 @@
 @echo off
+cd /d "%~dp0"
+
 if not exist banking_system.exe (
     echo Executable banking_system.exe not found!
     echo Running build.bat first...
