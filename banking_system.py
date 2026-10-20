@@ -910,25 +910,25 @@ class BankingGUI:
 def run_cli(bank: Bank):
     while True:
         print("\n" + "=" * 80)
-        print("                 APEX NATIONAL BANK - CORE BANKING SYSTEM               ")
-        print("                  OOP & Computer Graphics Mini-Project                  ")
-        print("=" * 80)
-        print("  Operations Menu:")
-        print("    [1] a. Create an account")
-        print("    [2] b. Deposit money")
-        print("    [3] c. Withdraw money")
-        print("    [4] d. Honor daily withdrawal limit")
-        print("    [5] e. Check the balance")
-        print("    [6] f. Display Account information")
-        print("    [7] g. Passbook Print (from to)")
-        print("  ------------------------------------------------------------------------------")
-        print("    [8] Computer Graphics: Visual Analytics Dashboard (Bar Chart & Balance Trend)")
-        print("    [9] View All Accounts Directory")
-        print("    [0] Exit")
+        print("Banking system having the following operations:")
+        print("  a. Create an account")
+        print("  b. Deposit money")
+        print("  c. Withdraw money")
+        print("  d. Honor daily withdrawal limit")
+        print("  e. Check the balance")
+        print("  f. Display Account information.")
+        print("  g. Passbook Print (from to)")
+        print("--------------------------------------------------------------------------------")
+        print("  h. Computer Graphics: Visual Analytics Dashboard (Bar Chart & Balance Trend)")
+        print("  i. View All Accounts Directory")
+        print("  q. Exit")
         print("=" * 80)
 
-        choice = input("Select an option (0-9): ").strip()
-        if choice == "1":
+        raw_choice = input("Select an option (a-g, or q to exit): ").strip().lower()
+        if not raw_choice:
+            continue
+
+        if raw_choice in ("a", "1"):
             print("\n--- [a] CREATE AN ACCOUNT ---")
             name = input("Account Holder Full Name : ").strip()
             phone = input("Contact Phone Number     : ").strip()
@@ -945,7 +945,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "2":
+        elif raw_choice in ("b", "2"):
             print("\n--- [b] DEPOSIT MONEY ---")
             acc_no = input("Account Number : ").strip()
             amt = float(input("Deposit Amount : INR "))
@@ -957,7 +957,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "3":
+        elif raw_choice in ("c", "3"):
             print("\n--- [c] WITHDRAW MONEY ---")
             acc_no = input("Account Number : ").strip()
             pin = input("4-Digit PIN    : ").strip()
@@ -969,7 +969,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[DECLINED] {e}")
 
-        elif choice == "4":
+        elif raw_choice in ("d", "4"):
             print("\n--- [d] HONOR DAILY WITHDRAWAL LIMIT ---")
             acc_no = input("Account Number : ").strip()
             pin = input("4-Digit PIN    : ").strip()
@@ -981,7 +981,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "5":
+        elif raw_choice in ("e", "5"):
             print("\n--- [e] CHECK THE BALANCE ---")
             acc_no = input("Account Number : ").strip()
             pin = input("4-Digit PIN    : ").strip()
@@ -991,7 +991,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "6":
+        elif raw_choice in ("f", "6"):
             print("\n--- [f] DISPLAY ACCOUNT INFORMATION ---")
             acc_no = input("Account Number : ").strip()
             try:
@@ -1000,7 +1000,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "7":
+        elif raw_choice in ("g", "7"):
             print("\n--- [g] PASSBOOK PRINT (FROM TO) ---")
             acc_no = input("Account Number : ").strip()
             pin = input("4-Digit PIN    : ").strip()
@@ -1022,7 +1022,7 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "8":
+        elif raw_choice in ("h", "8"):
             print("\n--- COMPUTER GRAPHICS VISUAL ANALYTICS ---")
             acc_no = input("Account Number to visualize : ").strip()
             try:
@@ -1036,14 +1036,17 @@ def run_cli(bank: Bank):
             except Exception as e:
                 print(f"[ERROR] {e}")
 
-        elif choice == "9":
+        elif raw_choice in ("i", "9"):
             print("\n--- ALL REGISTERED ACCOUNTS ---")
             for acc in bank.accounts.values():
                 print(f"{acc._account_number:8} | {acc.get_account_type():8} | {acc._holder_name:24} | Bal: INR {acc._balance:10.2f}")
 
-        elif choice == "0":
+        elif raw_choice in ("q", "0", "exit"):
             print("\nExiting. Thank you for using Apex Banking System!")
             break
+
+        else:
+            print(f"[!] Invalid option '{raw_choice}'. Please enter a letter from 'a' to 'g', or 'q' to exit.")
 
 
 # ==============================================================================
