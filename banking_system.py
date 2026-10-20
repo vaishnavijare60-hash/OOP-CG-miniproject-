@@ -603,13 +603,13 @@ class BankingGUI:
         btn_frame.pack(fill="x", padx=30)
 
         buttons = [
-            ("a. Create Account", self.action_create_account, "#0284C7"),
-            ("b. Deposit Money", self.action_deposit, "#059669"),
-            ("c. Withdraw Money", self.action_withdraw, "#DC2626"),
-            ("d. Daily Limit Status", self.action_daily_limit, "#D97706"),
-            ("e. Check Balance", self.action_check_balance, "#4F46E5"),
-            ("f. Account Information", self.action_display_info, "#0F172A"),
-            ("g. Print Passbook", self.action_passbook, "#2563EB"),
+            ("a. Create an account", self.action_create_account, "#0284C7"),
+            ("b. Deposit money", self.action_deposit, "#059669"),
+            ("c. Withdraw money", self.action_withdraw, "#DC2626"),
+            ("d. Honor daily withdrawal limit", self.action_daily_limit, "#D97706"),
+            ("e. Check the balance", self.action_check_balance, "#4F46E5"),
+            ("f. Display Account information.", self.action_display_info, "#0F172A"),
+            ("g. Passbook Print (from to)", self.action_passbook, "#2563EB"),
             ("★ CG 2D Analytics", self.action_visualizer, "#7C3AED"),
         ]
 
