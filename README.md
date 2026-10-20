@@ -210,40 +210,83 @@ OOP-CG-miniproject/
 
 ## 🚀 How to Build and Run
 
-Both **C++** and **Python** implementations are included for maximum compatibility.
+Both **Python** and **C++** implementations are included for maximum cross-platform compatibility.
 
-### Option 1: Running with Python (Recommended for Quick Demo & Modern GUI)
+### Option 1: Running with Python
 
+#### A. Graphical User Interface (Tkinter + 2D Graphics Canvas)
 ```bash
-# 1. Run the Graphical User Interface (Tkinter + 2D Graphics Canvas)
+# Windows / macOS / Linux
 python banking_system.py
+# (or python3 banking_system.py)
+```
+*Or on Windows, simply double-click:* **`run_gui.bat`**
 
-# OR double-click:
-run_python.bat
-
-# 2. Run the Interactive Terminal Console (CLI Mode)
+#### B. Interactive Terminal Console (CLI Mode)
+```bash
 python banking_system.py --cli
 ```
+*Or on Windows, simply double-click:* **`run_cli.bat`**
 
-### Option 2: Compiling & Running C++ (MinGW / GCC)
+#### C. Zero-Dependency Web Application (Browser UI)
+```bash
+python web_app.py
+```
+Open **[http://localhost:5000](http://localhost:5000)** in any web browser. Features interactive forms for all operations [a]–[g] and live HTML5 2D Canvas charts.
 
-#### Method A: Using the one-click build script
+---
+
+### Option 2: Compiling & Running C++
+
+#### Windows (MinGW / GCC):
 ```cmd
+# Method 1: Using the one-click build script
 build.bat
 run.bat
-```
 
-#### Method B: Manual g++ compilation
-```bash
-g++ -std=c++14 -O2 -Iinclude src/*.cpp -o banking_system.exe -lgdi32 -luser32
-./banking_system.exe
-```
-
-#### Method C: Using Make
-```bash
+# Method 2: Using Make
 make
-./banking_system.exe
+banking_system.exe
+
+# Method 3: Direct g++ compilation
+g++ -std=c++14 -O2 -Iinclude src/*.cpp -o banking_system.exe -lgdi32 -luser32
+banking_system.exe
 ```
+
+#### Linux / macOS:
+```bash
+# Method 1: Using Make
+make
+./banking_system
+
+# Method 2: Direct g++ compilation (no Win32 libraries needed)
+g++ -std=c++14 -O2 -Iinclude src/*.cpp -o banking_system
+./banking_system
+```
+
+---
+
+## 🛠️ Troubleshooting
+
+### 1. `ModuleNotFoundError: No module named 'tkinter'`
+* **Why it happens:** Some minimal Linux distributions or custom Python environments do not bundle tkinter by default.
+* **Built-in fix:** `banking_system.py` uses optional imports. If tkinter is missing, it **automatically falls back to CLI mode** without crashing.
+* **To install tkinter on Linux:**
+  * Ubuntu / Debian: `sudo apt-get install python3-tk`
+  * Fedora / RHEL: `sudo dnf install python3-tkinter`
+  * Arch Linux: `sudo pacman -S tk`
+* **Alternative:** Run the zero-dependency Web UI (`python web_app.py`), which needs no GUI libraries and works on all platforms.
+
+### 2. `python` vs `python3` Command
+* On Linux and macOS systems, Python 3 is typically invoked with `python3` instead of `python`:
+  ```bash
+  python3 banking_system.py --cli
+  python3 web_app.py
+  ```
+
+### 3. Windows-Only Win32 GDI Graphics in C++
+* The C++ Visualizer uses native Win32 GDI APIs (`<windows.h>`, `-lgdi32`).
+* On Linux/macOS, the C++ code is conditionally compiled with `#ifdef _WIN32`. It compiles cleanly without linking errors, notifying the user to use `python3 web_app.py` for cross-platform 2D computer graphics.
 
 ---
 

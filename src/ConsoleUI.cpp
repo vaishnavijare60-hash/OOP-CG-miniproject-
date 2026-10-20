@@ -17,15 +17,17 @@ void ConsoleUI::clearScreen() {
 }
 
 void ConsoleUI::pressEnterToContinue() {
+    if (std::cin.eof()) return;
     std::cout << "\nPress [ENTER] to return to main menu...";
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::string dummy;
+    std::getline(std::cin, dummy);
 }
 
 std::string ConsoleUI::promptString(const std::string& prompt) {
+    if (std::cin.eof()) return "";
     std::cout << prompt;
     std::string val;
-    std::getline(std::cin, val);
-    // trim leading and trailing spaces
+    if (!std::getline(std::cin, val)) return "";
     size_t first = val.find_first_not_of(" \t\r\n");
     if (first == std::string::npos) return "";
     size_t last = val.find_last_not_of(" \t\r\n");
@@ -33,51 +35,57 @@ std::string ConsoleUI::promptString(const std::string& prompt) {
 }
 
 double ConsoleUI::promptDouble(const std::string& prompt, double minVal) {
-    double val;
-    while (true) {
+    while (!std::cin.eof()) {
         std::cout << prompt;
-        if (std::cin >> val) {
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::string line;
+        if (!std::getline(std::cin, line)) break;
+        try {
+            double val = std::stod(line);
             if (val >= minVal) {
                 return val;
             }
             std::cout << "  [!] Value must be at least " << minVal << ". Please try again.\n";
-        } else {
+        } catch (...) {
             std::cout << "  [!] Invalid numeric input. Please try again.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
+    return minVal;
 }
 
 int ConsoleUI::promptInt(const std::string& prompt, int minVal, int maxVal) {
-    int val;
-    while (true) {
+    while (!std::cin.eof()) {
         std::cout << prompt;
-        if (std::cin >> val) {
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::string line;
+        if (!std::getline(std::cin, line)) break;
+        try {
+            int val = std::stoi(line);
             if (val >= minVal && val <= maxVal) {
                 return val;
             }
             std::cout << "  [!] Please enter a value between " << minVal << " and " << maxVal << ".\n";
-        } else {
+        } catch (...) {
             std::cout << "  [!] Invalid integer input. Please try again.\n";
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
+    return 0;
 }
 
 std::string ConsoleUI::promptPin(const std::string& prompt) {
-    while (true) {
+    while (!std::cin.eof()) {
         std::cout << prompt;
         std::string pin;
-        std::getline(std::cin, pin);
+        if (!std::getline(std::cin, pin)) break;
+        size_t first = pin.find_first_not_of(" \t\r\n");
+        if (first != std::string::npos) {
+            size_t last = pin.find_last_not_of(" \t\r\n");
+            pin = pin.substr(first, (last - first + 1));
+        }
         if (pin.length() == 4 && pin.find_first_not_of("0123456789") == std::string::npos) {
             return pin;
         }
         std::cout << "  [!] Security PIN must be exactly 4 digits. Please try again.\n";
     }
+    return "0000";
 }
 
 void ConsoleUI::handleCreateAccount() {

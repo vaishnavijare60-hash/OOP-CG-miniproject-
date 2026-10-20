@@ -1008,10 +1008,16 @@ def run_cli(bank: Bank):
                 acc = bank.get_account(acc_no)
                 if not acc.authenticate(pin):
                     raise AuthenticationException()
-                from_s = input("From Date (YYYY-MM-DD, e.g. 2026-01-01) : ").strip() or "1970-01-01"
-                to_s = input("To Date   (YYYY-MM-DD, e.g. 2026-12-31) : ").strip() or datetime.date.today().isoformat()
-                from_d = datetime.date.fromisoformat(from_s)
-                to_d = datetime.date.fromisoformat(to_s)
+                from_s = input("From Date (YYYY-MM-DD, press Enter for all)  : ").strip() or "1970-01-01"
+                to_s   = input("To Date   (YYYY-MM-DD, press Enter for today): ").strip() or datetime.date.today().isoformat()
+                try:
+                    from_d = datetime.date.fromisoformat(from_s)
+                except ValueError:
+                    from_d = datetime.date(1970, 1, 1)
+                try:
+                    to_d = datetime.date.fromisoformat(to_s)
+                except ValueError:
+                    to_d = datetime.date.today()
                 print(acc.generate_passbook_text(from_d, to_d))
             except Exception as e:
                 print(f"[ERROR] {e}")
