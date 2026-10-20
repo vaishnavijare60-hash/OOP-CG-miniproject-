@@ -140,14 +140,14 @@ HTML_PAGE = """<!DOCTYPE html>
   <div class="grid">
     <!-- Sidebar Menu -->
     <div class="card">
-      <div class="card-title">Operations Menu</div>
-      <button class="menu-btn active" onclick="showTab('create')"><span>a. Create Account</span><span class="key">[1]</span></button>
-      <button class="menu-btn" onclick="showTab('deposit')"><span>b. Deposit Money</span><span class="key">[2]</span></button>
-      <button class="menu-btn" onclick="showTab('withdraw')"><span>c. Withdraw Money</span><span class="key">[3]</span></button>
-      <button class="menu-btn" onclick="showTab('daily')"><span>d. Daily Limit Status</span><span class="key">[4]</span></button>
-      <button class="menu-btn" onclick="showTab('balance')"><span>e. Check Balance</span><span class="key">[5]</span></button>
-      <button class="menu-btn" onclick="showTab('info')"><span>f. Account Information</span><span class="key">[6]</span></button>
-      <button class="menu-btn" onclick="showTab('passbook')"><span>g. Passbook Print</span><span class="key">[7]</span></button>
+      <div class="card-title">Banking system having the following operations:</div>
+      <button class="menu-btn active" onclick="showTab('create')"><span>a. Create an account</span><span class="key">[1]</span></button>
+      <button class="menu-btn" onclick="showTab('deposit')"><span>b. Deposit money</span><span class="key">[2]</span></button>
+      <button class="menu-btn" onclick="showTab('withdraw')"><span>c. Withdraw money</span><span class="key">[3]</span></button>
+      <button class="menu-btn" onclick="showTab('daily')"><span>d. Honor daily withdrawal limit</span><span class="key">[4]</span></button>
+      <button class="menu-btn" onclick="showTab('balance')"><span>e. Check the balance</span><span class="key">[5]</span></button>
+      <button class="menu-btn" onclick="showTab('info')"><span>f. Display Account information.</span><span class="key">[6]</span></button>
+      <button class="menu-btn" onclick="showTab('passbook')"><span>g. Passbook Print (from to)</span><span class="key">[7]</span></button>
       <button class="menu-btn" onclick="showTab('graphics')"><span>★ CG 2D Analytics</span><span class="key">[8]</span></button>
     </div>
 
@@ -155,7 +155,7 @@ HTML_PAGE = """<!DOCTYPE html>
     <div class="card">
       <!-- Create Account Tab -->
       <div id="tab-create" class="tab-pane">
-        <div class="card-title">a. Create a New Bank Account</div>
+        <div class="card-title">a. Create an account</div>
         <div class="form-group"><label>Account Holder Full Name</label><input type="text" id="cr-name" value="Vaishnavi Jare"></div>
         <div class="form-group"><label>Mobile Phone</label><input type="text" id="cr-phone" value="+91 9876543210"></div>
         <div class="form-group"><label>Email Address</label><input type="text" id="cr-email" value="vaishnavi@sppu.edu"></div>
@@ -172,7 +172,7 @@ HTML_PAGE = """<!DOCTYPE html>
 
       <!-- Deposit Tab -->
       <div id="tab-deposit" class="tab-pane" style="display:none;">
-        <div class="card-title">b. Deposit Money</div>
+        <div class="card-title">b. Deposit money</div>
         <div class="form-group"><label>Account Number</label><input type="text" id="dep-acc" value="SB1001"></div>
         <div class="form-group"><label>Deposit Amount (₹)</label><input type="number" id="dep-amt" value="2000"></div>
         <div class="form-group"><label>Remarks / Description</label><input type="text" id="dep-desc" value="Cash Deposit"></div>
@@ -181,7 +181,7 @@ HTML_PAGE = """<!DOCTYPE html>
 
       <!-- Withdraw Tab -->
       <div id="tab-withdraw" class="tab-pane" style="display:none;">
-        <div class="card-title">c. Withdraw Money (Honoring Daily Limit)</div>
+        <div class="card-title">c. Withdraw money</div>
         <div class="form-group"><label>Account Number</label><input type="text" id="wth-acc" value="SB1001"></div>
         <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="wth-pin" value="1234"></div>
         <div class="form-group"><label>Withdrawal Amount (₹)</label><input type="number" id="wth-amt" value="3000"></div>
@@ -190,7 +190,7 @@ HTML_PAGE = """<!DOCTYPE html>
 
       <!-- Daily Limit Tab -->
       <div id="tab-daily" class="tab-pane" style="display:none;">
-        <div class="card-title">d. Honor Daily Withdrawal Limit Status</div>
+        <div class="card-title">d. Honor daily withdrawal limit</div>
         <div class="form-group"><label>Account Number</label><input type="text" id="dl-acc" value="SB1001"></div>
         <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="dl-pin" value="1234"></div>
         <button class="btn-submit" onclick="submitDailyLimit()">Check Daily Limit Status</button>
@@ -198,7 +198,7 @@ HTML_PAGE = """<!DOCTYPE html>
 
       <!-- Balance Tab -->
       <div id="tab-balance" class="tab-pane" style="display:none;">
-        <div class="card-title">e. Check Account Balance</div>
+        <div class="card-title">e. Check the balance</div>
         <div class="form-group"><label>Account Number</label><input type="text" id="bal-acc" value="SB1001"></div>
         <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="bal-pin" value="1234"></div>
         <button class="btn-submit" onclick="submitBalance()">Inquire Balance</button>
@@ -206,14 +206,14 @@ HTML_PAGE = """<!DOCTYPE html>
 
       <!-- Info Tab -->
       <div id="tab-info" class="tab-pane" style="display:none;">
-        <div class="card-title">f. Display Account Information</div>
+        <div class="card-title">f. Display Account information.</div>
         <div class="form-group"><label>Account Number</label><input type="text" id="info-acc" value="SB1001"></div>
         <button class="btn-submit" onclick="submitInfo()">Display Customer Details</button>
       </div>
 
       <!-- Passbook Tab -->
       <div id="tab-passbook" class="tab-pane" style="display:none;">
-        <div class="card-title">g. Passbook Print (From Date to To Date)</div>
+        <div class="card-title">g. Passbook Print (from to)</div>
         <div class="form-group"><label>Account Number</label><input type="text" id="pb-acc" value="SB1001"></div>
         <div class="form-group"><label>4-Digit PIN</label><input type="password" id="pb-pin" value="1234"></div>
         <div class="form-group"><label>From Date (YYYY-MM-DD)</label><input type="date" id="pb-from" value="2026-01-01"></div>
