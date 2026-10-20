@@ -328,22 +328,22 @@ async function renderCanvasGraphics() {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Background grid
-  ctx.fillStyle = '#0b1120';
+  // Background
+  ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Title
-  ctx.fillStyle = '#f8fafc';
+  ctx.fillStyle = '#0f172a';
   ctx.font = 'bold 15px Plus Jakarta Sans';
   ctx.fillText(data.acc_no + ' (' + data.holder + ') - 2D Graphics Canvas', 20, 30);
 
   // Daily limit gauge
   ctx.font = '12px Plus Jakarta Sans';
-  ctx.fillStyle = '#94a3b8';
+  ctx.fillStyle = '#64748b';
   ctx.fillText('Daily Limit Meter: Used ₹' + data.withdrawn_today + ' / ₹' + data.daily_limit + ' (' + data.pct_used + '%)', 20, 60);
 
   // Progress bar
-  ctx.fillStyle = '#1e293b';
+  ctx.fillStyle = '#e2e8f0';
   ctx.fillRect(20, 72, 660, 16);
   ctx.fillStyle = data.pct_used > 85 ? '#ef4444' : (data.pct_used > 50 ? '#f59e0b' : '#10b981');
   ctx.fillRect(20, 72, 660 * Math.min(1.0, data.pct_used / 100), 16);
@@ -353,7 +353,7 @@ async function renderCanvasGraphics() {
   if (!txns || txns.length === 0) return;
 
   const plotX0 = 60, plotY0 = 330, plotX1 = 660, plotY1 = 130;
-  ctx.strokeStyle = '#334155';
+  ctx.strokeStyle = '#cbd5e1';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(plotX0, plotY1); ctx.lineTo(plotX0, plotY0); ctx.lineTo(plotX1, plotY0);
@@ -371,7 +371,7 @@ async function renderCanvasGraphics() {
     ctx.fillStyle = (t.type === 'WITHDRAWAL') ? '#ef4444' : '#10b981';
     ctx.fillRect(cx - 12, plotY0 - barH, 24, barH);
 
-    ctx.fillStyle = '#94a3b8';
+    ctx.fillStyle = '#64748b';
     ctx.font = '10px JetBrains Mono';
     ctx.fillText(t.id, cx - 14, plotY0 + 16);
 
@@ -381,7 +381,7 @@ async function renderCanvasGraphics() {
 
   // Balance Polyline
   if (balPts.length > 1) {
-    ctx.strokeStyle = '#3b82f6';
+    ctx.strokeStyle = '#2563eb';
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(balPts[0].x, balPts[0].y);
@@ -389,7 +389,7 @@ async function renderCanvasGraphics() {
     ctx.stroke();
 
     balPts.forEach(pt => {
-      ctx.fillStyle = '#3b82f6';
+      ctx.fillStyle = '#2563eb';
       ctx.beginPath();
       ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
       ctx.fill();
