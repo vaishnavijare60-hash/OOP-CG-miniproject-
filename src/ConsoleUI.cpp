@@ -457,42 +457,53 @@ void ConsoleUI::handleViewAllAccounts() {
 
 void ConsoleUI::run() {
     while (true) {
-        clearScreen();
+        if (!std::cin.eof()) clearScreen();
         std::cout << "========================================================================================\n";
-        std::cout << "                     APEX NATIONAL BANK - CORE BANKING SYSTEM                           \n";
-        std::cout << "                      OOP & CG Mini-Project (C++ & Win32 GDI)                           \n";
-        std::cout << "========================================================================================\n";
-        std::cout << "  Operations Menu:\n";
-        std::cout << "    [1] a. Create an account\n";
-        std::cout << "    [2] b. Deposit money\n";
-        std::cout << "    [3] c. Withdraw money\n";
-        std::cout << "    [4] d. Honor daily withdrawal limit\n";
-        std::cout << "    [5] e. Check the balance\n";
-        std::cout << "    [6] f. Display Account information\n";
-        std::cout << "    [7] g. Passbook Print (from to)\n";
-        std::cout << "  --------------------------------------------------------------------------------------\n";
-        std::cout << "    [8] Computer Graphics: Visual Analytics Dashboard (Bar Chart & Balance Graph)\n";
-        std::cout << "    [9] View All Accounts Directory\n";
-        std::cout << "    [0] Save & Exit\n";
+        std::cout << "Banking system having the following operations:\n";
+        std::cout << "  a. Create an account\n";
+        std::cout << "  b. Deposit money\n";
+        std::cout << "  c. Withdraw money\n";
+        std::cout << "  d. Honor daily withdrawal limit\n";
+        std::cout << "  e. Check the balance\n";
+        std::cout << "  f. Display Account information.\n";
+        std::cout << "  g. Passbook Print (from to)\n";
+        std::cout << "----------------------------------------------------------------------------------------\n";
+        std::cout << "  h. Computer Graphics: Visual Analytics Dashboard (Bar Chart & Balance Graph)\n";
+        std::cout << "  i. View All Accounts Directory\n";
+        std::cout << "  q. Save & Exit\n";
         std::cout << "========================================================================================\n";
 
-        int choice = promptInt("Select an option (0-9): ", 0, 9);
+        std::string choice = promptString("Select an option (a-g, or q to exit): ");
+        if (std::cin.eof()) break;
+        if (choice.empty()) continue;
 
-        switch (choice) {
-            case 1: handleCreateAccount(); break;
-            case 2: handleDepositMoney(); break;
-            case 3: handleWithdrawMoney(); break;
-            case 4: handleHonorDailyLimit(); break;
-            case 5: handleCheckBalance(); break;
-            case 6: handleDisplayAccountInfo(); break;
-            case 7: handlePassbookPrint(); break;
-            case 8: handleGraphicalAnalytics(); break;
-            case 9: handleViewAllAccounts(); break;
-            case 0:
-                std::cout << "\nSaving bank records to persistent storage...\n";
-                bank.saveToFile();
-                std::cout << "All changes saved successfully. Thank you for using Apex Banking System!\n";
-                return;
+        char c = std::tolower(choice[0]);
+        if (c == 'a' || choice == "1") {
+            handleCreateAccount();
+        } else if (c == 'b' || choice == "2") {
+            handleDepositMoney();
+        } else if (c == 'c' || choice == "3") {
+            handleWithdrawMoney();
+        } else if (c == 'd' || choice == "4") {
+            handleHonorDailyLimit();
+        } else if (c == 'e' || choice == "5") {
+            handleCheckBalance();
+        } else if (c == 'f' || choice == "6") {
+            handleDisplayAccountInfo();
+        } else if (c == 'g' || choice == "7") {
+            handlePassbookPrint();
+        } else if (c == 'h' || choice == "8") {
+            handleGraphicalAnalytics();
+        } else if (c == 'i' || choice == "9") {
+            handleViewAllAccounts();
+        } else if (c == 'q' || choice == "0") {
+            std::cout << "\nSaving bank records to persistent storage...\n";
+            bank.saveToFile();
+            std::cout << "All changes saved successfully. Thank you for using Apex Banking System!\n";
+            return;
+        } else {
+            std::cout << "\n[!] Invalid choice '" << choice << "'. Please select a letter from a to g, or q to exit.\n";
+            pressEnterToContinue();
         }
     }
 }
