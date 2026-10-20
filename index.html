@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex National Bank | OOP & Computer Graphics Mini-Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #090d16;
+    --card: #111827;
+    --card-border: #1f2937;
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --emerald: #10b981;
+    --rose: #ef4444;
+    --amber: #f59e0b;
+    --text: #f9fafb;
+    --text-muted: #9ca3af;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 60px;
+  }
+  header {
+    background: linear-gradient(180deg, #111827 0%, rgba(17, 24, 39, 0.9) 100%);
+    border-bottom: 1px solid var(--card-border);
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 800; color: white;
+  }
+  .brand-text h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .brand-text p { font-size: 12px; color: var(--text-muted); }
+  .badge {
+    background: rgba(16, 185, 129, 0.15); color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 6px 14px; border-radius: 9999px; font-size: 12px; font-weight: 600;
+  }
+  .container { max-width: 1200px; margin: 32px auto; padding: 0 24px; }
+  .grid { display: grid; grid-template-columns: 320px 1fr; gap: 28px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  }
+  .card-title {
+    font-size: 15px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .menu-btn {
+    width: 100%; text-align: left; padding: 12px 16px; margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid var(--card-border);
+    border-radius: 10px; color: var(--text); font-weight: 600; font-size: 13.5px;
+    cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between;
+  }
+  .menu-btn:hover, .menu-btn.active {
+    background: rgba(59, 130, 246, 0.15); border-color: var(--primary); color: #60a5fa;
+  }
+  .menu-btn .key {
+    background: rgba(255, 255, 255, 0.08); font-family: 'JetBrains Mono', monospace;
+    padding: 2px 8px; border-radius: 6px; font-size: 11px;
+  }
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+  input, select {
+    width: 100%; padding: 10px 14px; background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--card-border); border-radius: 10px;
+    color: var(--text); font-size: 14px; font-family: inherit;
+    outline: none; transition: border 0.2s;
+  }
+  input:focus, select:focus { border-color: var(--primary); }
+  .btn-submit {
+    background: var(--primary); color: white; border: none; padding: 12px 20px;
+    border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer;
+    width: 100%; transition: background 0.2s; margin-top: 8px;
+  }
+  .btn-submit:hover { background: var(--primary-hover); }
+
+  .output-box {
+    background: #0b1120; border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 18px; margin-top: 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    color: #38bdf8; white-space: pre-wrap; min-height: 140px; line-height: 1.5;
+  }
+  .canvas-container {
+    background: #0b1120; border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 16px; margin-top: 20px; text-align: center;
+  }
+  canvas { background: #0b1120; border-radius: 8px; width: 100%; max-width: 760px; }
+
+  .banner-account {
+    background: rgba(255, 255, 255, 0.03); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">🏛️</div>
+    <div class="brand-text">
+      <h1>Apex National Bank</h1>
+      <p>OOP & Computer Graphics Mini-Project (SPPU Curriculum)</p>
+    </div>
+  </div>
+  <div class="badge">● System Online</div>
+</header>
+
+<div class="container">
+  <div class="grid">
+    <!-- Sidebar Menu -->
+    <div class="card">
+      <div class="card-title">Operations Menu</div>
+      <button class="menu-btn active" onclick="showTab('create', this)"><span>a. Create Account</span><span class="key">[1]</span></button>
+      <button class="menu-btn" onclick="showTab('deposit', this)"><span>b. Deposit Money</span><span class="key">[2]</span></button>
+      <button class="menu-btn" onclick="showTab('withdraw', this)"><span>c. Withdraw Money</span><span class="key">[3]</span></button>
+      <button class="menu-btn" onclick="showTab('daily', this)"><span>d. Daily Limit Status</span><span class="key">[4]</span></button>
+      <button class="menu-btn" onclick="showTab('balance', this)"><span>e. Check Balance</span><span class="key">[5]</span></button>
+      <button class="menu-btn" onclick="showTab('info', this)"><span>f. Account Information</span><span class="key">[6]</span></button>
+      <button class="menu-btn" onclick="showTab('passbook', this)"><span>g. Passbook Print</span><span class="key">[7]</span></button>
+      <button class="menu-btn" onclick="showTab('graphics', this)"><span>★ CG 2D Analytics</span><span class="key">[8]</span></button>
+      <button class="menu-btn" onclick="showTab('all', this)"><span>Directory of Accounts</span><span class="key">[9]</span></button>
+    </div>
+
+    <!-- Main Workspace Area -->
+    <div class="card">
+      <!-- Create Account Tab -->
+      <div id="tab-create" class="tab-pane">
+        <div class="card-title">a. Create a New Bank Account</div>
+        <div class="form-group"><label>Account Holder Full Name</label><input type="text" id="cr-name" value="Vaishnavi Jare"></div>
+        <div class="form-group"><label>Mobile Phone</label><input type="text" id="cr-phone" value="+91 9876543210"></div>
+        <div class="form-group"><label>Email Address</label><input type="text" id="cr-email" value="vaishnavi@sppu.edu"></div>
+        <div class="form-group"><label>Account Type</label>
+          <select id="cr-type">
+            <option value="SAVINGS">Savings Account (Min Bal: INR 1,000 | Interest: 4% | Daily Limit: INR 25,000)</option>
+            <option value="CURRENT">Current Account (Min Bal: INR 5,000 | Interest: 0% | Daily Limit: INR 100,000)</option>
+          </select>
+        </div>
+        <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="cr-pin" value="1234" maxlength="4"></div>
+        <div class="form-group"><label>Initial Deposit (INR)</label><input type="number" id="cr-dep" value="15000"></div>
+        <button class="btn-submit" onclick="submitCreate()">Create Account Now</button>
+      </div>
+
+      <!-- Deposit Tab -->
+      <div id="tab-deposit" class="tab-pane" style="display:none;">
+        <div class="card-title">b. Deposit Money</div>
+        <div class="form-group"><label>Account Number</label><input type="text" id="dep-acc" value="SB1001"></div>
+        <div class="form-group"><label>Deposit Amount (INR)</label><input type="number" id="dep-amt" value="5000"></div>
+        <div class="form-group"><label>Remarks / Description</label><input type="text" id="dep-desc" value="Project Grant"></div>
+        <button class="btn-submit" onclick="submitDeposit()">Confirm Deposit</button>
+      </div>
+
+      <!-- Withdraw Tab -->
+      <div id="tab-withdraw" class="tab-pane" style="display:none;">
+        <div class="card-title">c. Withdraw Money (Honoring Daily Limit)</div>
+        <div class="form-group"><label>Account Number</label><input type="text" id="wth-acc" value="SB1001"></div>
+        <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="wth-pin" value="1234"></div>
+        <div class="form-group"><label>Withdrawal Amount (INR)</label><input type="number" id="wth-amt" value="3000"></div>
+        <button class="btn-submit" onclick="submitWithdraw()">Authorize & Withdraw</button>
+      </div>
+
+      <!-- Daily Limit Tab -->
+      <div id="tab-daily" class="tab-pane" style="display:none;">
+        <div class="card-title">d. Honor Daily Withdrawal Limit Status</div>
+        <div class="form-group"><label>Account Number</label><input type="text" id="dl-acc" value="SB1001"></div>
+        <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="dl-pin" value="1234"></div>
+        <button class="btn-submit" onclick="submitDailyLimit()">Check Daily Limit Status</button>
+      </div>
+
+      <!-- Balance Tab -->
+      <div id="tab-balance" class="tab-pane" style="display:none;">
+        <div class="card-title">e. Check Account Balance</div>
+        <div class="form-group"><label>Account Number</label><input type="text" id="bal-acc" value="SB1001"></div>
+        <div class="form-group"><label>4-Digit Security PIN</label><input type="password" id="bal-pin" value="1234"></div>
+        <button class="btn-submit" onclick="submitBalance()">Inquire Balance</button>
+      </div>
+
+      <!-- Info Tab -->
+      <div id="tab-info" class="tab-pane" style="display:none;">
+        <div class="card-title">f. Display Account Information</div>
+        <div class="form-group"><label>Account Number</label><input type="text" id="info-acc" value="SB1001"></div>
+        <button class="btn-submit" onclick="submitInfo()">Display Customer Details</button>
+      </div>
+
+      <!-- Passbook Tab -->
+      <div id="tab-passbook" class="tab-pane" style="display:none;">
+        <div class="card-title">g. Passbook Print (From Date to To Date)</div>
+        <div class="form-group"><label>Account Number</label><input type="text" id="pb-acc" value="SB1001"></div>
+        <div class="form-group"><label>4-Digit PIN</label><input type="password" id="pb-pin" value="1234"></div>
+        <div class="form-group"><label>From Date (YYYY-MM-DD)</label><input type="date" id="pb-from" value="2026-01-01"></div>
+        <div class="form-group"><label>To Date (YYYY-MM-DD)</label><input type="date" id="pb-to" value="2026-12-31"></div>
+        <button class="btn-submit" onclick="submitPassbook()">Generate Official Passbook</button>
+      </div>
+
+      <!-- Graphics Tab -->
+      <div id="tab-graphics" class="tab-pane" style="display:none;">
+        <div class="card-title">★ Computer Graphics (CG) 2D Visual Analytics</div>
+        <div class="form-group"><label>Account Number to Visualize</label><input type="text" id="cg-acc" value="SB1001"></div>
+        <button class="btn-submit" onclick="renderCanvasGraphics()">Render 2D Graphics Canvas</button>
+        <div class="canvas-container">
+          <canvas id="cgCanvas" width="720" height="380"></canvas>
+        </div>
+      </div>
+
+      <!-- All Accounts Tab -->
+      <div id="tab-all" class="tab-pane" style="display:none;">
+        <div class="card-title">Registered Accounts Directory</div>
+        <button class="btn-submit" onclick="showAllAccounts()">Refresh Accounts List</button>
+      </div>
+
+      <div class="output-box" id="output">Welcome to Apex National Bank System!
+Select any operation from the menu on the left to begin.
+Test Accounts: SB1001 (PIN: 1234) | CA2001 (PIN: 9999)</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Local in-browser banking engine matching Python/C++ OOP models
+class BankEngine {
+  constructor() {
+    this.accounts = {
+      "SB1001": {
+        accNo: "SB1001", name: "Vaishnavi Jare", phone: "+91 9876543210",
+        email: "vaishnavi@sppu.edu", type: "SAVINGS", pin: "1234",
+        balance: 28000.0, minBal: 1000.0, rate: 4.0, dailyLimit: 20000.0,
+        withdrawnToday: 4500.0, lastDate: "2026-10-20",
+        transactions: [
+          { id: "TXN1001", date: "2026-10-19 10:00:00", type: "OPENING", amount: 25000.0, bal: 25000.0, desc: "Opening Deposit" },
+          { id: "TXN1002", date: "2026-10-19 14:30:00", type: "DEPOSIT", amount: 5000.0, bal: 30000.0, desc: "Salary Credited" },
+          { id: "TXN1003", date: "2026-10-19 16:45:00", type: "DEPOSIT", amount: 2500.0, bal: 32500.0, desc: "Freelance Payment" },
+          { id: "TXN1004", date: "2026-10-20 09:15:00", type: "WITHDRAWAL", amount: 3000.0, bal: 29500.0, desc: "ATM Cash" },
+          { id: "TXN1005", date: "2026-10-20 11:20:00", type: "WITHDRAWAL", amount: 1500.0, bal: 28000.0, desc: "Grocery POS" }
+        ]
+      },
+      "CA2001": {
+        accNo: "CA2001", name: "Tech Innovations Corp", phone: "+91 9123456780",
+        email: "accounts@techcorp.in", type: "CURRENT", pin: "9999",
+        balance: 85000.0, minBal: 5000.0, rate: 0.0, dailyLimit: 50000.0,
+        withdrawnToday: 10000.0, lastDate: "2026-10-20",
+        transactions: [
+          { id: "TXN2001", date: "2026-10-19 09:00:00", type: "OPENING", amount: 75000.0, bal: 75000.0, desc: "Opening Deposit" },
+          { id: "TXN2002", date: "2026-10-19 15:00:00", type: "DEPOSIT", amount: 20000.0, bal: 95000.0, desc: "Client Invoice" },
+          { id: "TXN2003", date: "2026-10-20 10:30:00", type: "WITHDRAWAL", amount: 10000.0, bal: 85000.0, desc: "Vendor Settlement" }
+        ]
+      }
+    };
+    this.nextSb = 1002;
+    this.nextCa = 2002;
+    this.nextTxn = 1006;
+  }
+
+  getToday() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  getNowString() {
+    const d = new Date();
+    return d.toISOString().replace('T', ' ').substring(0, 19);
+  }
+
+  createAccount(name, phone, email, type, pin, initial) {
+    if (!pin || pin.length !== 4 || isNaN(pin)) throw new Error("PIN must be an exact 4-digit numeric code.");
+    const isCurr = (type === "CURRENT");
+    const minBal = isCurr ? 5000.0 : 1000.0;
+    const rate = isCurr ? 0.0 : 4.0;
+    const limit = isCurr ? 100000.0 : 25000.0;
+    if (initial < minBal) throw new Error(`${type} account requires min initial deposit of INR ${minBal.toLocaleString()}`);
+
+    const accNo = isCurr ? `CA${this.nextCa++}` : `SB${this.nextSb++}`;
+    this.accounts[accNo] = {
+      accNo, name, phone, email, type, pin,
+      balance: initial, minBal, rate, dailyLimit: limit,
+      withdrawnToday: 0.0, lastDate: this.getToday(),
+      transactions: [{
+        id: `TXN${this.nextTxn++}`, date: this.getNowString(),
+        type: "OPENING", amount: initial, bal: initial, desc: "Account Opening Initial Deposit"
+      }]
+    };
+    return accNo;
+  }
+
+  deposit(accNo, amount, desc) {
+    const acc = this.accounts[accNo];
+    if (!acc) throw new Error(`Account ${accNo} does not exist.`);
+    if (amount <= 0) throw new Error("Deposit amount must be strictly greater than zero.");
+    acc.balance += amount;
+    acc.transactions.push({
+      id: `TXN${this.nextTxn++}`, date: this.getNowString(),
+      type: "DEPOSIT", amount, bal: acc.balance, desc: desc || "Cash Deposit"
+    });
+    return acc.balance;
+  }
+
+  withdraw(accNo, pin, amount) {
+    const acc = this.accounts[accNo];
+    if (!acc) throw new Error(`Account ${accNo} does not exist.`);
+    if (acc.pin !== pin) throw new Error("Authentication Failed: Incorrect 4-digit PIN provided.");
+    if (amount <= 0) throw new Error("Withdrawal amount must be strictly greater than zero.");
+
+    // Check daily limit reset
+    const today = this.getToday();
+    if (acc.lastDate !== today) {
+      acc.withdrawnToday = 0;
+      acc.lastDate = today;
+    }
+
+    // Daily limit validation
+    if (acc.withdrawnToday + amount > acc.dailyLimit) {
+      const rem = Math.max(0, acc.dailyLimit - acc.withdrawnToday);
+      throw new Error(`Daily Withdrawal Limit Exceeded!\n  * Daily Limit Allowed : INR ${acc.dailyLimit.toLocaleString()}\n  * Already Withdrawn   : INR ${acc.withdrawnToday.toLocaleString()}\n  * Remaining for Today : INR ${rem.toLocaleString()}\n  * Attempted Amount    : INR ${amount.toLocaleString()}`);
+    }
+
+    // Min balance validation
+    if (acc.balance - amount < acc.minBal) {
+      throw new Error(`Insufficient Funds: Requested withdrawal of INR ${amount.toLocaleString()} exceeds available funds. (Current: INR ${acc.balance.toLocaleString()}, Min Balance: INR ${acc.minBal.toLocaleString()})`);
+    }
+
+    acc.balance -= amount;
+    acc.withdrawnToday += amount;
+    acc.transactions.push({
+      id: `TXN${this.nextTxn++}`, date: this.getNowString(),
+      type: "WITHDRAWAL", amount, bal: acc.balance, desc: "Cash Withdrawal"
+    });
+    return acc.balance;
+  }
+}
+
+const engine = new BankEngine();
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.menu-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).style.display = 'block';
+  btn.classList.add('active');
+  if (id === 'graphics') renderCanvasGraphics();
+  if (id === 'all') showAllAccounts();
+}
+
+function printOutput(text, isError = false) {
+  const out = document.getElementById('output');
+  out.style.color = isError ? '#ef4444' : '#38bdf8';
+  out.textContent = text;
+}
+
+function submitCreate() {
+  try {
+    const name = document.getElementById('cr-name').value;
+    const phone = document.getElementById('cr-phone').value;
+    const email = document.getElementById('cr-email').value;
+    const type = document.getElementById('cr-type').value;
+    const pin = document.getElementById('cr-pin').value;
+    const dep = parseFloat(document.getElementById('cr-dep').value);
+    const accNo = engine.createAccount(name, phone, email, type, pin, dep);
+    printOutput(`SUCCESS! Account created successfully.\n  * Generated Account Number: ${accNo}\n  * Account Type: ${type}\n  * Account Holder: ${name}\n  * Initial Balance: INR ${dep.toLocaleString()}`);
+  } catch (e) {
+    printOutput(`[ERROR] ${e.message}`, true);
+  }
+}
+
+function submitDeposit() {
+  try {
+    const acc = document.getElementById('dep-acc').value;
+    const amt = parseFloat(document.getElementById('dep-amt').value);
+    const desc = document.getElementById('dep-desc').value;
+    const bal = engine.deposit(acc, amt, desc);
+    printOutput(`SUCCESS! Deposited INR ${amt.toLocaleString()} into ${acc}.\nUpdated Available Balance: INR ${bal.toLocaleString()}`);
+  } catch (e) {
+    printOutput(`[ERROR] ${e.message}`, true);
+  }
+}
+
+function submitWithdraw() {
+  try {
+    const accNo = document.getElementById('wth-acc').value;
+    const pin = document.getElementById('wth-pin').value;
+    const amt = parseFloat(document.getElementById('wth-amt').value);
+    const bal = engine.withdraw(accNo, pin, amt);
+    const acc = engine.accounts[accNo];
+    const rem = Math.max(0, acc.dailyLimit - acc.withdrawnToday);
+    printOutput(`TRANSACTION APPROVED!\n  * Dispensed Cash        : INR ${amt.toLocaleString()}\n  * Updated Balance       : INR ${bal.toLocaleString()}\n  * Remaining Daily Limit : INR ${rem.toLocaleString()}`);
+  } catch (e) {
+    printOutput(`[DECLINED] ${e.message}`, true);
+  }
+}
+
+function submitDailyLimit() {
+  try {
+    const accNo = document.getElementById('dl-acc').value;
+    const pin = document.getElementById('dl-pin').value;
+    const acc = engine.accounts[accNo];
+    if (!acc) throw new Error(`Account ${accNo} not found.`);
+    if (acc.pin !== pin) throw new Error("Authentication Failed: Incorrect PIN.");
+    const rem = Math.max(0, acc.dailyLimit - acc.withdrawnToday);
+    printOutput(`================================================================\n     DAILY WITHDRAWAL LIMIT STATUS: ${accNo} (${acc.name})\n================================================================\n  * Configured Daily Limit : INR ${acc.dailyLimit.toLocaleString()}\n  * Total Withdrawn Today  : INR ${acc.withdrawnToday.toLocaleString()}\n  * Remaining Allowance    : INR ${rem.toLocaleString()}\n  * Last Withdrawal Date   : ${acc.lastDate}\n================================================================`);
+  } catch (e) {
+    printOutput(`[ERROR] ${e.message}`, true);
+  }
+}
+
+function submitBalance() {
+  try {
+    const accNo = document.getElementById('bal-acc').value;
+    const pin = document.getElementById('bal-pin').value;
+    const acc = engine.accounts[accNo];
+    if (!acc) throw new Error(`Account ${accNo} not found.`);
+    if (acc.pin !== pin) throw new Error("Authentication Failed: Incorrect PIN.");
+    const withdr = Math.max(0, acc.balance - acc.minBal);
+    const rem = Math.max(0, acc.dailyLimit - acc.withdrawnToday);
+    printOutput(`BALANCE ENQUIRY REPORT\n  * Account Number  : ${accNo}\n  * Account Holder  : ${acc.name}\n  * Account Type    : ${acc.type}\n  * Current Balance : INR ${acc.balance.toLocaleString()}\n  * Minimum Balance : INR ${acc.minBal.toLocaleString()}\n  * Withdrawable    : INR ${withdr.toLocaleString()} (Subject to limit)\n  * Today's Rem. Limit: INR ${rem.toLocaleString()}`);
+  } catch (e) {
+    printOutput(`[ERROR] ${e.message}`, true);
+  }
+}
+
+function submitInfo() {
+  try {
+    const accNo = document.getElementById('info-acc').value;
+    const acc = engine.accounts[accNo];
+    if (!acc) throw new Error(`Account ${accNo} not found.`);
+    const rem = Math.max(0, acc.dailyLimit - acc.withdrawnToday);
+    printOutput(`================================================================\n                   ACCOUNT INFORMATION DETAILS                  \n================================================================\nAccount Number            : ${acc.accNo}\nAccount Type              : ${acc.type}\nAccount Holder            : ${acc.name}\nContact Phone             : ${acc.phone}\nEmail Address             : ${acc.email}\n----------------------------------------------------------------\nCurrent Balance           : INR ${acc.balance.toLocaleString()}\nMinimum Balance           : INR ${acc.minBal.toLocaleString()}\nAnnual Interest Rate      : ${acc.rate}%\n----------------------------------------------------------------\nDaily Withdrawal Limit    : INR ${acc.dailyLimit.toLocaleString()}\nTotal Withdrawn Today     : INR ${acc.withdrawnToday.toLocaleString()}\nRemaining Daily Limit     : INR ${rem.toLocaleString()}\nTotal Transactions        : ${acc.transactions.length}\n================================================================`);
+  } catch (e) {
+    printOutput(`[ERROR] ${e.message}`, true);
+  }
+}
+
+function submitPassbook() {
+  try {
+    const accNo = document.getElementById('pb-acc').value;
+    const pin = document.getElementById('pb-pin').value;
+    const acc = engine.accounts[accNo];
+    if (!acc) throw new Error(`Account ${accNo} not found.`);
+    if (acc.pin !== pin) throw new Error("Authentication Failed: Incorrect PIN.");
+
+    const fromDate = document.getElementById('pb-from').value;
+    const toDate = document.getElementById('pb-to').value;
+
+    let totalDebit = 0, totalCredit = 0, matched = 0;
+    const rows = [];
+
+    acc.transactions.forEach(t => {
+      const tDate = t.date.split(' ')[0];
+      if (tDate >= fromDate && tDate <= toDate) {
+        matched++;
+        const isWth = (t.type === "WITHDRAWAL");
+        const deb = isWth ? t.amount.toLocaleString() : "-";
+        const cr = !isWth ? t.amount.toLocaleString() : "-";
+        if (isWth) totalDebit += t.amount; else totalCredit += t.amount;
+        rows.push(`${t.date.padEnd(20)} ${t.id.padEnd(11)} ${t.type.padEnd(12)} ${deb.padStart(13)} ${cr.padStart(13)} ${t.bal.toLocaleString().padStart(15)}   ${t.desc}`);
+      }
+    });
+
+    const lines = [
+      "============================================================================================",
+      "                                OFFICIAL BANK PASSBOOK                                  ",
+      "============================================================================================",
+      `Account Number : ${acc.accNo.padEnd(16)} Holder Name  : ${acc.name}`,
+      `Account Type   : ${acc.type.padEnd(16)} Filter Range : ${fromDate} to ${toDate}`,
+      `Current Bal    : INR ${acc.balance.toLocaleString()}`,
+      "--------------------------------------------------------------------------------------------",
+      "Date & Time          Txn ID      Type            Debit (INR)    Credit (INR)   Balance (INR)   Description",
+      "--------------------------------------------------------------------------------------------",
+      rows.length > 0 ? rows.join("\n") : "              No transactions found within the specified date range.            ",
+      "--------------------------------------------------------------------------------------------",
+      "SUMMARY FOR PERIOD:",
+      `  * Total Transactions Recorded : ${matched}`,
+      `  * Total Amount Debited        : INR ${totalDebit.toLocaleString()}`,
+      `  * Total Amount Credited       : INR ${totalCredit.toLocaleString()}`,
+      `  * Net Transaction Difference  : INR ${(totalCredit - totalDebit).toLocaleString()}`,
+      "============================================================================================"
+    ];
+
+    printOutput(lines.join("\n"));
+  } catch (e) {
+    printOutput(`[ERROR] ${e.message}`, true);
+  }
+}
+
+function showAllAccounts() {
+  const lines = [
+    "============================================================================================",
+    "                              REGISTERED ACCOUNTS DIRECTORY                                 ",
+    "============================================================================================",
+    "Acc No.   Type       Holder Name              Phone            Balance (INR)   Daily Limit",
+    "--------------------------------------------------------------------------------------------"
+  ];
+  Object.values(engine.accounts).forEach(acc => {
+    lines.push(`${acc.accNo.padEnd(9)} ${acc.type.padEnd(10)} ${acc.name.padEnd(24)} ${acc.phone.padEnd(16)} ${acc.balance.toLocaleString().padStart(13)}   INR ${acc.dailyLimit.toLocaleString()}`);
+  });
+  lines.push("============================================================================================");
+  printOutput(lines.join("\n"));
+}
+
+function renderCanvasGraphics() {
+  const accNo = document.getElementById('cg-acc').value;
+  const acc = engine.accounts[accNo];
+  if (!acc) return;
+
+  const canvas = document.getElementById('cgCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background
+  ctx.fillStyle = '#0b1120';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Header Banner
+  ctx.fillStyle = '#1e293b';
+  ctx.fillRect(15, 15, canvas.width - 30, 80);
+
+  // Vector Bank Icon
+  ctx.fillStyle = '#38bdf8';
+  ctx.beginPath();
+  ctx.moveTo(40, 48); ctx.lineTo(60, 28); ctx.lineTo(80, 48); ctx.closePath();
+  ctx.fill();
+  for (let px of [43, 53, 63, 73]) ctx.fillRect(px, 50, 4, 18);
+  ctx.fillRect(38, 68, 44, 4);
+
+  // Title
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 15px Plus Jakarta Sans';
+  ctx.fillText(`${acc.accNo} (${acc.name}) - 2D Computer Graphics Analytics`, 95, 45);
+  ctx.font = '12px Plus Jakarta Sans';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText(`Account Type: ${acc.type} | Current Ledger Balance: INR ${acc.balance.toLocaleString()}`, 95, 68);
+
+  // Daily Limit Progress Gauge
+  const rem = Math.max(0, acc.dailyLimit - acc.withdrawnToday);
+  const pct = Math.min(100, Math.round((acc.withdrawnToday / acc.dailyLimit) * 100));
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '11px Plus Jakarta Sans';
+  ctx.fillText(`Daily Withdrawal Limit Meter: Used INR ${acc.withdrawnToday.toLocaleString()} / ${acc.dailyLimit.toLocaleString()} (${pct}%) | Remaining: INR ${rem.toLocaleString()}`, 20, 120);
+
+  // Track
+  ctx.fillStyle = '#1e293b';
+  ctx.fillRect(20, 130, canvas.width - 40, 14);
+  // Gauge fill
+  ctx.fillStyle = (pct > 85) ? '#ef4444' : ((pct > 50) ? '#f59e0b' : '#10b981');
+  ctx.fillRect(20, 130, (canvas.width - 40) * (pct / 100), 14);
+
+  // 2D Bar Chart & Trend Curve
+  const txns = acc.transactions.slice(-8);
+  const plotX0 = 60, plotY0 = 340, plotX1 = canvas.width - 30, plotY1 = 175;
+
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(plotX0, plotY1); ctx.lineTo(plotX0, plotY0); ctx.lineTo(plotX1, plotY0);
+  ctx.stroke();
+
+  let maxVal = 10000;
+  txns.forEach(t => { if (t.amount > maxVal) maxVal = t.amount; if (t.bal > maxVal) maxVal = t.bal; });
+
+  const stepX = (plotX1 - plotX0) / (txns.length + 1);
+  const balPts = [];
+
+  txns.forEach((t, i) => {
+    const cx = plotX0 + (i + 1) * stepX;
+    const barH = (t.amount / maxVal) * (plotY0 - plotY1);
+    ctx.fillStyle = (t.type === 'WITHDRAWAL') ? '#ef4444' : '#10b981';
+    ctx.fillRect(cx - 14, plotY0 - barH, 28, barH);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '10px JetBrains Mono';
+    ctx.fillText(t.id, cx - 18, plotY0 + 16);
+
+    const balY = plotY0 - (t.bal / maxVal) * (plotY0 - plotY1);
+    balPts.push({ x: cx, y: balY });
+  });
+
+  // Balance Curve
+  if (balPts.length > 1) {
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(balPts[0].x, balPts[0].y);
+    for (let i = 1; i < balPts.length; i++) ctx.lineTo(balPts[i].x, balPts[i].y);
+    ctx.stroke();
+
+    balPts.forEach(pt => {
+      ctx.fillStyle = '#3b82f6';
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
+}
+</script>
+</body>
+</html>
