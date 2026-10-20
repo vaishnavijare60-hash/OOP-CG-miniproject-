@@ -439,30 +439,30 @@ class CGVisualizer:
         win = tk.Toplevel()
         win.title(f"2D Computer Graphics Analytics | {account._account_number} ({account._holder_name})")
         win.geometry("960x700")
-        win.configure(bg="#0F172A")
+        win.configure(bg="#F1F5F9")
 
         canvas = tk.Canvas(win, width=960, height=700, bg="#F8FAFC", highlightthickness=0)
         canvas.pack(fill="both", expand=True)
 
         # Header banner
-        canvas.create_rectangle(0, 0, 960, 90, fill="#0F172A", outline="")
+        canvas.create_rectangle(0, 0, 960, 90, fill="#1E40AF", outline="")
 
         # Bank vector icon
         # Roof triangle
-        canvas.create_polygon(30, 48, 55, 22, 80, 48, fill="#38BDF8", outline="white", width=2)
+        canvas.create_polygon(30, 48, 55, 22, 80, 48, fill="#93C5FD", outline="white", width=2)
         # Pediment
-        canvas.create_rectangle(32, 48, 78, 53, fill="#38BDF8", outline="white", width=1)
+        canvas.create_rectangle(32, 48, 78, 53, fill="#93C5FD", outline="white", width=1)
         # Pillars
         for px in [35, 46, 57, 68]:
             canvas.create_rectangle(px, 54, px + 7, 72, fill="white", outline="")
         # Base
-        canvas.create_rectangle(30, 72, 80, 77, fill="#38BDF8", outline="white", width=1)
+        canvas.create_rectangle(30, 72, 80, 77, fill="#93C5FD", outline="white", width=1)
 
         # Title
         canvas.create_text(100, 32, text="APEX NATIONAL BANK - COMPUTER GRAPHICS ANALYTICS",
                            font=("Segoe UI", 16, "bold"), fill="white", anchor="w")
         canvas.create_text(100, 58, text="2D Graphical Dashboard & Transaction Visualizer | OOP & CG Project",
-                           font=("Segoe UI", 10), fill="#94A3B8", anchor="w")
+                           font=("Segoe UI", 10), fill="#DBEAFE", anchor="w")
 
         # Account Info Card
         canvas.create_rectangle(30, 105, 930, 215, fill="white", outline="#E2E8F0", width=1)
@@ -593,10 +593,10 @@ class BankingGUI:
 
     def _build_ui(self):
         # Header
-        header = tk.Frame(self.root, bg="#0F172A", height=70)
+        header = tk.Frame(self.root, bg="#1E40AF", height=70)
         header.pack(fill="x")
-        tk.Label(header, text="APEX NATIONAL BANK", font=("Segoe UI", 18, "bold"), fg="white", bg="#0F172A").pack(pady=(12, 2))
-        tk.Label(header, text="OOP & Computer Graphics Mini-Project", font=("Segoe UI", 9), fg="#94A3B8", bg="#0F172A").pack()
+        tk.Label(header, text="APEX NATIONAL BANK", font=("Segoe UI", 18, "bold"), fg="white", bg="#1E40AF").pack(pady=(12, 2))
+        tk.Label(header, text="OOP & Computer Graphics Mini-Project", font=("Segoe UI", 9), fg="#DBEAFE", bg="#1E40AF").pack()
 
         # Action Buttons Grid
         btn_frame = tk.Frame(self.root, bg="#F1F5F9", pady=15)
@@ -608,7 +608,7 @@ class BankingGUI:
             ("c. Withdraw money", self.action_withdraw, "#DC2626"),
             ("d. Honor daily withdrawal limit", self.action_daily_limit, "#D97706"),
             ("e. Check the balance", self.action_check_balance, "#4F46E5"),
-            ("f. Display Account information.", self.action_display_info, "#0F172A"),
+            ("f. Display Account information.", self.action_display_info, "#475569"),
             ("g. Passbook Print (from to)", self.action_passbook, "#2563EB"),
             ("★ CG 2D Analytics", self.action_visualizer, "#7C3AED"),
         ]
@@ -626,8 +626,8 @@ class BankingGUI:
         tk.Label(out_frame, text="System Console & Passbook Output Display:", font=("Segoe UI", 10, "bold"),
                  fg="#334155", bg="#F1F5F9").pack(anchor="w", pady=(0, 4))
 
-        self.txt_out = tk.Text(out_frame, font=("Courier New", 9), bg="#0F172A", fg="#38BDF8",
-                               insertbackground="white", relief="flat", padx=10, pady=10)
+        self.txt_out = tk.Text(out_frame, font=("Courier New", 9), bg="#FFFFFF", fg="#0F172A",
+                               insertbackground="#0F172A", relief="solid", bd=1, padx=10, pady=10)
         self.txt_out.pack(fill="both", expand=True)
 
         self.log("Welcome to Apex National Bank System.\nReady for operations [a] through [g].\nSample accounts: SB1001 (PIN: 1234), CA2001 (PIN: 9999).\n")
