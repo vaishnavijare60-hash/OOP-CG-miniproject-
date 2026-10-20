@@ -521,10 +521,18 @@ class BankingHandler(http.server.BaseHTTPRequestHandler):
         self.send_response(404)
         self.end_headers()
 
+def open_browser(port):
+    try:
+        webbrowser.open(f"http://localhost:{port}")
+    except Exception:
+        pass
+
 def run_server():
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("", PORT), BankingHandler) as httpd:
         print(f"Serving Banking System on http://localhost:{PORT}")
+        print(f"Opening your browser automatically at http://localhost:{PORT} ...")
+        threading.Timer(0.5, open_browser, args=[PORT]).start()
         httpd.serve_forever()
 
 if __name__ == "__main__":
