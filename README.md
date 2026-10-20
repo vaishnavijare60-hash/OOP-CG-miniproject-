@@ -13,15 +13,14 @@
 
 ## 📌 Problem Statement
 
-Design and develop an Object-Oriented **Banking System** featuring Computer Graphics analytics that supports the following operations:
-
-* **a. Create an account** (Savings / Current with PIN protection and minimum initial balance)
-* **b. Deposit money** (Credit funds with automated transaction journaling)
-* **c. Withdraw money** (Debit funds subject to minimum balance and daily limit)
-* **d. Honor daily withdrawal limit** (Track daily withdrawal amounts, reject limit breaches, reset per calendar day)
-* **e. Check the balance** (Real-time balance inquiry, available funds, remaining daily allowance)
-* **f. Display Account information** (Comprehensive customer card and account metrics)
-* **g. Passbook Print (from to)** (Tabular passbook generation filtered by date range or transaction index with debit/credit ledger and summary totals)
+Banking system having the following operations:
+* **a. Create an account**
+* **b. Deposit money**
+* **c. Withdraw money**
+* **d. Honor daily withdrawal limit**
+* **e. Check the balance**
+* **f. Display Account information.**
+* **g. Passbook Print (from to)**
 * **★ Computer Graphics (CG) Visual Analytics Dashboard** (2D Bar Charts, Balance Curves, Vector Bank Icon, and Dynamic Limit Gauge)
 
 ---
